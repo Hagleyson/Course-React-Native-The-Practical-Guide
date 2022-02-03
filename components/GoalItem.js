@@ -1,11 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-
+import { StyleSheet, Text, TouchableNativeFeedback, View } from "react-native";
+//olhar variações do touchable
 const GoalItem = (props) => {
   return (
-    <View style={styles.listItem}>
-      <Text>{props.item.item.value}</Text>
-    </View>
+    <TouchableNativeFeedback activeOpacity={0.8} onPress={props.onDelete}>
+      <View style={styles.listItem} onPress>
+        <Text>{props.item.item.value}</Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 

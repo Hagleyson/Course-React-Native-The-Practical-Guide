@@ -28,7 +28,9 @@ export default function App() {
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={couseGoal}
-        renderItem={(itemData) => <GoalItem item={itemData} />}
+        renderItem={(itemData) => (
+          <GoalItem onDelete={() => console.log("ixsi")} item={itemData} />
+        )}
       />
     </View>
   );
