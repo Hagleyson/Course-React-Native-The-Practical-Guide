@@ -21,7 +21,11 @@ export default function App() {
       ...currentGoals,
     ]);
   };
-
+  const removeGoalHandler = (goalId) => {
+    setCouseGoal((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== goalId);
+    });
+  };
   return (
     <View style={styles.screen}>
       <GoallInput onPress={addGoalHanlder} />
@@ -29,7 +33,7 @@ export default function App() {
         keyExtractor={(item, index) => item.id}
         data={couseGoal}
         renderItem={(itemData) => (
-          <GoalItem onDelete={() => console.log("ixsi")} item={itemData} />
+          <GoalItem onDelete={removeGoalHandler} item={itemData} />
         )}
       />
     </View>
