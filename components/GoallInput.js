@@ -28,8 +28,8 @@ const GoallInput = (props) => {
 export default GoallInput;
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   input: {
@@ -37,5 +37,6 @@ const styles = StyleSheet.create({
     width: "80%",
     borderColor: "black",
     borderWidth: 1,
+    marginBottom: 10,
   },
 });
