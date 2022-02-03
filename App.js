@@ -28,7 +28,9 @@ export default function App() {
       </View>
       <View>
         {couseGoal.map((goal, idx) => (
-          <Text key={idx}>{goal}</Text>
+          <View key={idx} style={styles.listItem}>
+            <Text>{goal}</Text>
+          </View>
         ))}
       </View>
     </View>
@@ -47,6 +49,13 @@ const styles = StyleSheet.create({
   input: {
     padding: 10,
     width: "80%",
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  listItem: {
+    marginVertical: 10,
+    padding: 10,
+    backgroundColor: "#ccc",
     borderColor: "black",
     borderWidth: 1,
   },
