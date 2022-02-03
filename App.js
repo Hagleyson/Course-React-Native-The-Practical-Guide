@@ -1,11 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import { Button, StyleSheet, TextInput, View, Text } from "react-native";
 
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState("");
-  const [couseGoal, setCouseGoal] = useState("");
-  console.log(couseGoal);
+  const [couseGoal, setCouseGoal] = useState([]);
 
   function goalInputHandler(enteredText) {
     setEnteredGoal(enteredText);
@@ -27,7 +26,11 @@ export default function App() {
         />
         <Button style={{ width: "20%" }} title="add" onPress={addGoalHanlder} />
       </View>
-      <View></View>
+      <View>
+        {couseGoal.map((goal, idx) => (
+          <Text key={idx}>{goal}</Text>
+        ))}
+      </View>
     </View>
   );
 }
