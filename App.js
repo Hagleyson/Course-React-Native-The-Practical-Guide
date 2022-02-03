@@ -13,6 +13,7 @@ export default function App() {
       { id: Math.random().toString(), value: enteredGoal },
       ...currentGoals,
     ]);
+    setIsAddMode(false);
   };
   const removeGoalHandler = (goalId) => {
     setCouseGoal((currentGoals) => {
@@ -22,7 +23,11 @@ export default function App() {
   return (
     <View style={styles.screen}>
       <Button title="Add New Goal" onPress={() => setIsAddMode(true)} />
-      <GoallInput visible={isAddMode} onPress={addGoalHanlder} />
+      <GoallInput
+        visible={isAddMode}
+        onPress={addGoalHanlder}
+        onCancel={() => setIsAddMode(false)}
+      />
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={couseGoal}
