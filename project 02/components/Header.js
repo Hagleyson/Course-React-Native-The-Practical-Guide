@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     height: 30,
-    backgroundColor: "black",
     color: "#ffffff",
     fontSize: 18,
   },
