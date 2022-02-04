@@ -42,10 +42,10 @@ const GameScreen = (props) => {
       return;
     }
     if (direction === "lower") {
-      currentHigh.current === currentGuess;
+      currentHigh.current = currentGuess;
     }
     if (direction === "greater") {
-      currentLow.current === currentGuess;
+      currentLow.current = currentGuess;
     }
 
     const nextNumber = generateRandomBetween(
@@ -54,7 +54,7 @@ const GameScreen = (props) => {
       currentGuess
     );
     setCurrentGuess(nextNumber);
-    setRounds((curRounds) => curRounds++);
+    setRounds((curRounds) => curRounds + 1);
   };
 
   return (
