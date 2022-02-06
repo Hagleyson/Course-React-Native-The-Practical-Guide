@@ -4,6 +4,7 @@ import Colors from "../constants/colors";
 import BodyText from "../components/BodyText";
 import TitleText from "../components/TitleText";
 import backgroundImage from "../assets/success.png";
+import colors from "../constants/colors";
 const GameOverScreen = (props) => {
   return (
     <View style={styles.screen}>
@@ -11,12 +12,24 @@ const GameOverScreen = (props) => {
       <BodyText>Number of rounds: {props.roundsNumbers}</BodyText>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../assets/success.png")}
+          // source={require("../assets/success.png")}
+          fadeDuration={2000}
+          source={{
+            uri: "https://image.freepik.com/fotos-gratis/montanha-nevoenta-na-natureza-nordica-do-norte_21730-13527.jpg",
+          }}
           style={styles.image}
           resizeMode="cover"
         />
       </View>
-      <BodyText>Number was: {props.userNumber}</BodyText>
+      <View style={styles.resultContainer}>
+        <BodyText style={styles.resultText}>
+          You phone needed{" "}
+          <Text style={styles.highlight}> {props.roundsNumbers}</Text> rounds to
+          guess the number{" "}
+          <Text style={styles.highlight}>{props.userNumber}</Text>.
+        </BodyText>
+      </View>
+
       <Button
         title="NEW GAME"
         onPress={props.onRestartGame}
@@ -46,6 +59,19 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+  },
+  resultContainer: {
+    width: "80%",
+    marginVertical: 20,
+  },
+  resultText: {
+    textAlign: "center",
+    fontSize: 20,
+  },
+  highlight: {
+    color: colors.accent,
+    fontFamily: "open-sans-bold",
+    textAlign: "center",
   },
 });
 export default GameOverScreen;
