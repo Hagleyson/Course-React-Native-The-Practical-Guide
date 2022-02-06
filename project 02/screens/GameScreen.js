@@ -6,6 +6,7 @@ import MainButton from "../components/MainButton";
 import NumberContainer from "../components/NumberContainer";
 import defaultStyle from "../constants/default-style";
 import { Ionicons } from "@expo/vector-icons";
+import BodyText from "../components/BodyText";
 
 const generateRandomBetween = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -16,6 +17,15 @@ const generateRandomBetween = (min, max, exclude) => {
   } else {
     return rndNum;
   }
+};
+
+const renderListItem = (guess, numOfRound) => {
+  return (
+    <View key={guess} style={styles.listItem}>
+      <BodyText>#{numOfRound}</BodyText>
+      <BodyText>{guess}</BodyText>
+    </View>
+  );
 };
 
 const GameScreen = (props) => {
@@ -72,13 +82,13 @@ const GameScreen = (props) => {
           <Ionicons name="md-add" size={24} color={"white"} />
         </MainButton>
       </Card>
-      <ScrollView>
-        {pastGuesses.map((guess) => (
-          <View key={guess}>
-            <Text>{guess}</Text>
-          </View>
-        ))}
-      </ScrollView>
+      <View style={styles.list}>
+        <ScrollView>
+          {pastGuesses.map((guess, idx) =>
+            renderListItem(guess, pastGuesses.length - idx)
+          )}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -86,6 +96,7 @@ const GameScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    width: "100%",
     padding: 10,
     alignItems: "center",
   },
@@ -94,6 +105,21 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginTop: 20,
     width: "80%",
+  },
+  list: {
+    flex: 1,
+    width: "80%",
+  },
+  listItem: {
+    borderColor: "#ccc",
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: "white",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-around",
   },
 });
 
