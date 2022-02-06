@@ -5,6 +5,7 @@ import BodyText from "../components/BodyText";
 import TitleText from "../components/TitleText";
 import backgroundImage from "../assets/success.png";
 import colors from "../constants/colors";
+import MainButton from "../components/MainButton";
 const GameOverScreen = (props) => {
   return (
     <View style={styles.screen}>
@@ -30,11 +31,7 @@ const GameOverScreen = (props) => {
         </BodyText>
       </View>
 
-      <Button
-        title="NEW GAME"
-        onPress={props.onRestartGame}
-        color={Colors.primary}
-      />
+      <MainButton onPress={props.onRestartGame}>NEW GAME</MainButton>
     </View>
   );
 };
