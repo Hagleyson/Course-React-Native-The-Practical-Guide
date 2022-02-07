@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Alert,
-  ScrollView,
   FlatList,
   Dimensions,
 } from "react-native";
@@ -36,7 +35,8 @@ const renderListItem = (listLength, itemData) => (
 );
 
 const GameScreen = (props) => {
-  ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+  //trava a pagina no modo retrato.
+  // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   const initialGuess = generateRandomBetween(1, 100, props.userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()]);
