@@ -9,7 +9,17 @@ const CategoryMeal = (props) => {
       <Button
         title="GO to Details"
         onPress={() => {
+          /*props.navigation.push("MealDetail")
+           *
+           */
           props.navigation.navigate("MealDetail");
+        }}
+      />
+      <Button
+        title="GO back"
+        onPress={() => {
+          // props.navigation.goBack();
+          props.navigation.pop();
         }}
       />
     </View>
