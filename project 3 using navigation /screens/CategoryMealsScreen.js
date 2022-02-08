@@ -14,7 +14,14 @@ const CategoryMeal = (props) => {
         duration={itemData.item.duration}
         complexity={itemData.item.complexity}
         affordability={itemData.item.affordability}
-        onSelect={() => {}}
+        onSelect={() => {
+          props.navigation.navigate({
+            routeName: "MealDetail",
+            params: {
+              mealID: itemData.item.id,
+            },
+          });
+        }}
         image={itemData.item.imageUrl}
       />
     );

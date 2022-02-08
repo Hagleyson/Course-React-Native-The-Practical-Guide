@@ -28,7 +28,7 @@ const MealItem = (props) => {
               </View>
             </ImageBackground>
           </View>
-          <View style={{ ...styles.mealRow, ...styles.mealDetais }}>
+          <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
             <Text>{props.duration}m</Text>
             <Text>{props.complexity.toUpperCase()}</Text>
             <Text>{props.affordability.toUpperCase()}</Text>
@@ -43,33 +43,36 @@ const styles = StyleSheet.create({
   mealItem: {
     height: 200,
     width: "100%",
-    backgroundColor: "#ccc",
-    marginBottom: 10,
-  },
-  mealRow: {
-    flexDirection: "row",
-  },
-  mealHeader: {
-    height: "90%",
-  },
-  mealDetais: {
-    paddingHorizontal: 10,
-    justifyContent: "space-between",
+    backgroundColor: "#f5f5f5",
+    borderRadius: 10,
+    overflow: "hidden",
   },
   image: {
     width: "100%",
     height: "100%",
     justifyContent: "flex-end",
   },
-  titleContainer: {},
-
+  mealRow: {
+    flexDirection: "row",
+  },
+  mealHeader: {
+    height: "85%",
+  },
+  mealDetail: {
+    paddingHorizontal: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "15%",
+  },
+  titleContainer: {
+    backgroundColor: "rgba(0,0,0,0.5)",
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+  },
   title: {
     fontFamily: "open-sans-bold",
     fontSize: 20,
     color: "white",
-    backgroundColor: "rgba(0,0,0,0.5)",
-    paddingVertical: 5,
-    paddingHorizontal: 12,
     textAlign: "center",
   },
 });
