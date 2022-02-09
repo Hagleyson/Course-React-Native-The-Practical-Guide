@@ -14,15 +14,13 @@ import CategoryMeal from "../screens/CategoryMealsScreen";
 import MealDetailScreen from "../screens/MealDetaisScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import FilterScreen from "../screens/FiltersScreen";
-const defaulStackNavOptions = {
-  // mode: "card",
-  // initialRouteName: "MealDetail",
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
-    },
-    headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
+
+const defaultStackNavOptions = {
+  headerStyle: {
+    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
   },
+  headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
+  headerTitle: "A Screen",
 };
 
 const MealsNavigator = createStackNavigator(
@@ -33,7 +31,7 @@ const MealsNavigator = createStackNavigator(
     },
     MealDetail: MealDetailScreen,
   },
-  defaulStackNavOptions
+  { defaultNavigationOptions: defaultStackNavOptions }
 );
 
 const FavNavigator = createStackNavigator(
@@ -43,7 +41,7 @@ const FavNavigator = createStackNavigator(
     },
     MealDetail: MealDetailScreen,
   },
-  defaulStackNavOptions
+  { defaultNavigationOptions: defaultStackNavOptions }
 );
 
 const tabScreenConfig = {
@@ -84,16 +82,32 @@ const MealsFavTabNavigator =
         },
       });
 
-const FiltersNavigator = createStackNavigator({
-  Filters: FilterScreen,
-});
+const FiltersNavigator = createStackNavigator(
+  {
+    Filters: FilterScreen,
+  },
+  { defaultNavigationOptions: defaultStackNavOptions }
+);
 
 const MainNavigator = createDrawerNavigator(
   {
-    MealsFavs: MealsFavTabNavigator,
+    MealsFavs: {
+      screen: MealsFavTabNavigator,
+      navigationOptions: {
+        drawerLabel: "Meals",
+      },
+    },
     Filters: FiltersNavigator,
   },
-  {}
+  {
+    contentOptions: {
+      activeTintColor: Colors.accentColor,
+      labelStyle: {
+        fontFamily: "open-sans-bold",
+      },
+    },
+    defaultNavigationOptions: defaultStackNavOptions,
+  }
 );
 
 export default createAppContainer(MainNavigator);
