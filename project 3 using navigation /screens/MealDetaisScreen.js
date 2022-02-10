@@ -17,6 +17,9 @@ const ListItem = (props) => {
 const MealDetailScreen = (props) => {
   const availableMeals = useSelector((state) => state.meals.meals);
   const mealId = props.navigation.getParam("mealID");
+  const currentMealsIsFavorite = useSelector((state) =>
+    state.meals.favoriteMeals.some((meal) => meal.id === mealId)
+  );
   const selectedMeal = availableMeals.find((meal) => meal.id === mealId);
 
   const dispatch = useDispatch();
@@ -29,6 +32,9 @@ const MealDetailScreen = (props) => {
     props.navigation.setParams({ toggleFavorite: toggleFavoriteHandler });
   }, [toggleFavoriteHandler]);
 
+  useEffect(() => {
+    props.navigation.setParams({ isFav: currentMealsIsFavorite });
+  }, [currentMealsIsFavorite]);
   return (
     <ScrollView>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
