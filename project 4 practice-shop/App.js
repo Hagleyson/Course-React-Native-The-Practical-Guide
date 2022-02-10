@@ -8,9 +8,15 @@ import { Text } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { useState } from "react";
-const rootReducer = combineReducers({ products: ProductsReducer });
+import { composeWithDevTools } from "redux-devtools-extension";
+import cartReducer from "./store/reducers/cart";
 
-const store = createStore(rootReducer);
+const rootReducer = combineReducers({
+  products: ProductsReducer,
+  cart: cartReducer,
+});
+
+const store = createStore(rootReducer, composeWithDevTools());
 
 const fetchFonts = () => {
   return Font.loadAsync({
