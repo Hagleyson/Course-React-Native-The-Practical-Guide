@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import { View, Text, StyleSheet, Switch, Platform } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -13,7 +13,7 @@ const FilterSwitch = (props) => {
         trackColor={{ false: Colors.accentColor, true: Colors.primaryColor }}
         thumbColor={Platform.OS === "android" ? Colors.primaryColor : ""}
         value={props.value}
-        onValueChange={(newValue) => props.onValueChange(newValue)}
+        onValueChange={props.onValueChange}
       />
     </View>
   );
@@ -25,6 +25,19 @@ const FiltersScreen = (props) => {
   const [isVegan, setIsVegan] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
 
+  const saveFilters = useCallback(() => {
+    const appliedFilters = {
+      glutenFree: isGlutenFree,
+      lactoseFree: isLactoseFree,
+      vegan: isVegan,
+      isVegetarian: isVegetarian,
+    };
+    console.log(appliedFilters);
+  }, [isGlutenFree, isLactoseFree, isVegan, isVegetarian]);
+
+  useEffect(() => {
+    props.navigation.setParams({ save: saveFilters });
+  }, [saveFilters]);
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Available Filters / Restrictions</Text>
@@ -32,22 +45,22 @@ const FiltersScreen = (props) => {
         <FilterSwitch
           title="Gluten-free"
           value={isGlutenFree}
-          onValueChange={setIsGlutenFree}
+          onValueChange={(newValue) => setIsGlutenFree(newValue)}
         />
         <FilterSwitch
           title="Lactose-free"
           value={isLactoseFree}
-          onValueChange={setIsLactoseFree}
+          onValueChange={(newValue) => setIsLactoseFree(newValue)}
         />
         <FilterSwitch
           title="Vegan"
           value={isVegan}
-          onValueChange={setIsVegan}
+          onValueChange={(newValue) => setIsVegan(newValue)}
         />
         <FilterSwitch
           title="Vegetarian"
           value={isVegetarian}
-          onValueChange={setIsVegetarian}
+          onValueChange={(newValue) => setIsVegetarian(newValue)}
         />
       </View>
     </View>
@@ -65,6 +78,15 @@ FiltersScreen.navigationOptions = (navData) => {
           onPress={() => {
             navData.navigation.toggleDrawer();
           }}
+        ></Item>
+      </HeaderButtons>
+    ),
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Save"
+          iconName="ios-save"
+          onPress={navData.navigation.getParam("save")}
         ></Item>
       </HeaderButtons>
     ),
