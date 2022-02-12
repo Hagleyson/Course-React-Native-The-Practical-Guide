@@ -1,6 +1,6 @@
 import React from "react";
-import { FlatList, Platform } from "react-native";
-
+import { FlatList, Platform, Button } from "react-native";
+import Colors from "../../constants/Colors";
 import { useSelector } from "react-redux";
 
 import ProductItem from "../../components/shop/ProductsItem";
@@ -18,9 +18,23 @@ const UserProductScreen = () => {
           image={itemData.item.imageUrl}
           title={itemData.item.title}
           price={itemData.item.price}
-          onViewDetail={() => {}}
-          onAddToCart={() => {}}
-        />
+          onSelect={() => {}}
+        >
+          <Button
+            color={Colors.primary}
+            title="Edit"
+            onPress={() => {
+              selectItemHandler(itemData.item.id, itemData.item.title);
+            }}
+          />
+          <Button
+            color={Colors.primary}
+            title="Delete"
+            onPress={() => {
+              dispatch(cartAction.addToCart(itemData.item));
+            }}
+          />
+        </ProductItem>
       )}
     />
   );
