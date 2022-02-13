@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -20,6 +20,12 @@ const EditProductScreen = (props) => {
     editedProduct ? editedProduct.description : ""
   );
 
+  const submitHandler = useCallback(() => {
+    console.log("entrou");
+  }, []);
+  useEffect(() => {
+    props.navigation.setParams({ submit: submitHandler });
+  }, [submitHandler]);
   return (
     <ScrollView>
       <View style={styles.form}>
@@ -64,6 +70,7 @@ const EditProductScreen = (props) => {
 };
 
 EditProductScreen.navigationOptions = (navData) => {
+  const submitFn = navData.navigation.getParam("submit");
   return {
     headerTitle: navData.navigation.getParam("productId")
       ? "Edit Product"
@@ -75,9 +82,7 @@ EditProductScreen.navigationOptions = (navData) => {
           iconName={
             Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
           }
-          onPress={() => {
-            navData.navigation.navigate("EditProduct");
-          }}
+          onPress={submitFn}
         />
       </HeaderButtons>
     ),
