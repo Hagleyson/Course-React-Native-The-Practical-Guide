@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useReducer } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { View, StyleSheet, Alert } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
 import * as productsActions from "../../store/actions/products";
@@ -62,6 +62,7 @@ const EditProductScreen = (props) => {
       Alert.alert("Wrong input!", "Please check the erros in the form", [
         { text: "Okay" },
       ]);
+      console.log(formState.formIsVaild);
       return;
     }
     if (editedProduct) {
@@ -79,7 +80,7 @@ const EditProductScreen = (props) => {
           formState.inputValues.title,
           formState.inputValues.description,
           formState.inputValues.imageUrl,
-          formState.inputValues.price
+          +formState.inputValues.price
         )
       );
     }
@@ -89,48 +90,62 @@ const EditProductScreen = (props) => {
     props.navigation.setParams({ submit: submitHandler });
   }, [submitHandler]);
 
-  const textChangeHandler = (inputIdentifier, text) => {
-    let isValid = false;
-    if (text.trim().length > 0) {
-      setTitleIsValid(true);
-    }
-    dispatchFormState({
-      type: FORM_INPUT_UPDATE,
-      value: text,
-      isValid: isValid,
-      input: inputIdentifier,
-    });
-  };
+  const inputChangeHandler = useCallback(
+    (inputIdentifier, inputValue, inputValidity) => {
+      dispatchFormState({
+        type: FORM_INPUT_UPDATE,
+        value: inputValue,
+        isValid: inputValidity,
+        input: inputIdentifier,
+      });
+    },
+    [dispatchFormState]
+  );
 
   return (
     <ScrollView>
       <View style={styles.form}>
         <Input
+          id="title"
           label="Title"
           errorText="Please enter a valid title"
           keyboardType="default"
           autoCapitalize="sentences"
           autoCorrect
           returnKeyType="next"
-          onEndEditing={() => console.log("onEndEditing")}
-          onSubmitEditing={() => console.log("onSubmitEditing")}
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.title : ""}
+          initiallyValid={!!editedProduct}
+          required
         />
         <Input
+          id="imageUrl"
           label="ImageUrl"
           errorText="Please enter a valid image url"
           keyboardType="default"
           returnKeyType="next"
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.imageUrl : ""}
+          initiallyValid={!!editedProduct}
+          required
         />
         {editedProduct ? null : (
           <Input
+            id="price"
             label="Price"
             errorText="Please enter a valid price"
             keyboardType="decimal-pad"
             returnKeyType="next"
+            onInputChange={inputChangeHandler}
+            initialValue={editedProduct ? editedProduct.price : ""}
+            initiallyValid={!!editedProduct}
+            required
+            min={0}
           />
         )}
 
         <Input
+          id="description"
           label="Description"
           errorText="Please enter a valid description"
           keyboardType="default"
@@ -138,6 +153,11 @@ const EditProductScreen = (props) => {
           autoCorrect
           multiline
           numberOfLines={3}
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.description : ""}
+          initiallyValid={!!editedProduct}
+          required
+          minLength={5}
         />
       </View>
     </ScrollView>
