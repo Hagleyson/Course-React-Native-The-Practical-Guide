@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as productsActions from "../../store/actions/products";
 
 import CustomHeaderButton from "../../components/UI/HeaderButton";
+import Input from "../../components/UI/input";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -104,52 +105,40 @@ const EditProductScreen = (props) => {
   return (
     <ScrollView>
       <View style={styles.form}>
-        <View style={styles.formControl}>
-          <Text style={styles.label}>Title</Text>
-          <TextInput
-            style={styles.input}
-            value={formState.inputValues.title}
-            onChangeText={textChangeHandler.bind(this, "title")}
-            keyboardType="default"
-            autoCapitalize="sentences"
-            autoCorrect
-            returnKeyType="next"
-            onEndEditing={() => console.log("onEndEditing")}
-            onSubmitEditing={() => console.log("onSubmitEditing")}
-          />
-          {!formState.inputValidations.title && (
-            <Text>Please enter a valid title!</Text>
-          )}
-        </View>
-        <View style={styles.formControl}>
-          <Text style={styles.label}>ImageUrl</Text>
-          <TextInput
-            style={styles.input}
-            value={formState.inputValues.imageUrl}
-            onChangeText={textChangeHandler.bind(this, "imageUrl")}
-            keyboardType="default"
-          />
-        </View>
+        <Input
+          label="Title"
+          errorText="Please enter a valid title"
+          keyboardType="default"
+          autoCapitalize="sentences"
+          autoCorrect
+          returnKeyType="next"
+          onEndEditing={() => console.log("onEndEditing")}
+          onSubmitEditing={() => console.log("onSubmitEditing")}
+        />
+        <Input
+          label="ImageUrl"
+          errorText="Please enter a valid image url"
+          keyboardType="default"
+          returnKeyType="next"
+        />
         {editedProduct ? null : (
-          <View style={styles.formControl}>
-            <Text style={styles.label}>Price</Text>
-            <TextInput
-              style={styles.input}
-              value={formState.inputValues.price}
-              onChangeText={textChangeHandler.bind(this, "price")}
-              keyboardType="decimal-pad"
-            />
-          </View>
+          <Input
+            label="Price"
+            errorText="Please enter a valid price"
+            keyboardType="decimal-pad"
+            returnKeyType="next"
+          />
         )}
 
-        <View style={styles.formControl}>
-          <Text style={styles.label}>Description</Text>
-          <TextInput
-            style={styles.input}
-            value={formState.inputValues.description}
-            onChangeText={textChangeHandler.bind(this, "description")}
-          />
-        </View>
+        <Input
+          label="Description"
+          errorText="Please enter a valid description"
+          keyboardType="default"
+          autoCapitalize="sentences"
+          autoCorrect
+          multiline
+          numberOfLines={3}
+        />
       </View>
     </ScrollView>
   );
