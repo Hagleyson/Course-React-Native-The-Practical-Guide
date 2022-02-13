@@ -11,7 +11,7 @@ import UserProductScreen from "../screens/user/UserProductScreen";
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import Colors from "../constants/Colors";
-
+import EditProductScreen from "../screens/user/EditProductScreen";
 const defaultNavOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === "android" ? Colors.primary : "",
@@ -66,6 +66,7 @@ const OrdersNavigator = createStackNavigator(
 const AdminNavigator = createStackNavigator(
   {
     UserProduct: UserProductScreen,
+    EditProduct: EditProductScreen,
   },
   {
     navigationOptions: {
