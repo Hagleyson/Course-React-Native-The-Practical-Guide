@@ -1,5 +1,13 @@
-import React, { useEffect } from "react";
-import { Button, FlatList, Platform } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  Button,
+  FlatList,
+  Platform,
+  ActivityIndicator,
+  View,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import ProductItem from "../../components/shop/ProductsItem";
 
@@ -10,6 +18,8 @@ import * as cartAction from "../../store/actions/cart";
 import * as productsActions from "../../store/actions/products";
 import Colors from "../../constants/Colors";
 const ProductsOverviewScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const products = useSelector((state) => state.products.availableProducts);
   const dispatch = useDispatch();
 
@@ -19,10 +29,44 @@ const ProductsOverviewScreen = (props) => {
       productTitle: title,
     });
   };
+  const loadedProducts = useCallback(async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(productsActions.fetchProducts());
+    } catch (error) {
+      setError(err.message);
+    }
 
+    setIsLoading(false);
+  }, [dispatch, setIsLoading, setError]);
   useEffect(() => {
-    dispatch(productsActions.fetchProducts());
-  }, [dispatch]);
+    loadedProducts();
+  }, [dispatch, loadedProducts]);
+
+  if (error) {
+    <View style={styles.centered}>
+      <Text>An error occurred!</Text>
+      <Button
+        title="Try again"
+        onPress={loadedProducts}
+        color={Colors.primary}
+      />
+    </View>;
+  }
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
+  if (!isLoading && products.length === 0) {
+    <View style={styles.centered}>
+      <Text>No products found. Maybe start adding some!</Text>
+    </View>;
+  }
   return (
     <FlatList
       data={products}
@@ -81,4 +125,7 @@ ProductsOverviewScreen.navigationOptions = (navData) => {
     ),
   };
 };
+const styles = StyleSheet.create({
+  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
+});
 export default ProductsOverviewScreen;
