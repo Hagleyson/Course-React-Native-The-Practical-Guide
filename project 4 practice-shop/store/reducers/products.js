@@ -1,34 +1,34 @@
 import PRODUCTS from "../../data/dummy-data";
-import Product from "../../models/product";
 import {
-  CREATE_PRODUCT,
   DELETE_PRODUCT,
-  SET_PRODUCTS,
+  CREATE_PRODUCT,
   UPDATE_PRODUCT,
+  SET_PRODUCTS,
 } from "../actions/products";
+import Product from "../../models/product";
 
 const initialState = {
   availableProducts: PRODUCTS,
-  userProducts: PRODUCTS.filter((prod) => prod.ownerId === "u1"),
+  userProducts: PRODUCTS.filter((prod) => prod.ownerId === "ui"),
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_PRODUCTS:
+      console.log(action.products[0]);
       return {
         availableProducts: action.products,
-        userProducts: action.products.filter((prod) => prod.ownerId === "u1"),
+        userProducts: action.products.filter((prod) => prod.ownerId === "ui"),
       };
     case CREATE_PRODUCT:
       const newProduct = new Product(
         action.productData.id,
-        "ui",
+        "u1",
         action.productData.title,
         action.productData.imageUrl,
         action.productData.description,
         action.productData.price
       );
-      console.log(action.productData.price);
       return {
         ...state,
         availableProducts: state.availableProducts.concat(newProduct),
@@ -68,9 +68,6 @@ export default (state = initialState, action) => {
           (product) => product.id !== action.pid
         ),
       };
-
-    default:
-      break;
   }
   return state;
 };
