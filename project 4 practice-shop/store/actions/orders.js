@@ -35,10 +35,11 @@ export const fetchOrders = () => {
 };
 
 export const addOrder = (cartItems, totalAmount) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
     const date = new Date();
     const response = await fetch(
-      "https://react-http-cf8b9-default-rtdb.firebaseio.com/orders/ui.json",
+      `https://react-http-cf8b9-default-rtdb.firebaseio.com/orders/ui.json?auth=${token}`,
       {
         method: "POST",
         headers: {
