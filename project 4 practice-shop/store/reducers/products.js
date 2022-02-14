@@ -15,7 +15,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_PRODUCTS:
-      console.log(action.products[0]);
       return {
         availableProducts: action.products,
         userProducts: action.products.filter((prod) => prod.ownerId === "ui"),

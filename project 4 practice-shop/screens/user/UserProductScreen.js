@@ -9,7 +9,6 @@ import CustomHeaderButton from "../../components/UI/HeaderButton";
 import * as productsAction from "../../store/actions/products";
 const UserProductScreen = (props) => {
   const UserProduct = useSelector((state) => state.products.userProducts);
-  console.log(UserProduct);
   const dispatch = useDispatch();
   const editProductHandler = (id) => {
     props.navigation.navigate("EditProduct", { productId: id });
