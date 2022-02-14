@@ -2,7 +2,7 @@ import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
 import ShopNavigator from "./navigation/ShopNavigator";
-
+import ReduxThunk from "redux-thunk";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { useState } from "react";
