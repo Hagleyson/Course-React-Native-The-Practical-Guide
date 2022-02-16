@@ -1,6 +1,6 @@
 import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabase("places.db");
+const db = SQLite.openDatabase("place.db");
 
 export const init = () => {
   const promise = new Promise((resolve, reject) => {
@@ -19,6 +19,7 @@ export const init = () => {
   });
   return promise;
 };
+
 export const insertPlace = (title, imageUri, address, lat, lng) => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
