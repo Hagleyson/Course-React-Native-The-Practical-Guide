@@ -16,12 +16,26 @@
     },
     "assetBundlePatterns": ["assets/**/*"],
     "ios": {
+      "bundleIdentifier": "hag.hag.com",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "hag.hag.com",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/places-adaptive.png",
         "backgroundColor": "#171717"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBrdRWdmt8REWM5OcUxIoH0XrBNM8Nkl4g"
+        }
       }
     },
     "web": {
