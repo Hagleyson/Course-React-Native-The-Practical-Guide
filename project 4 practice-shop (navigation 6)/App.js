@@ -12,6 +12,15 @@ import cartReducer from "./store/reducers/cart";
 import ordersReducer from "./store/reducers/orders";
 import authReducer from "./store/reducers/auth";
 import AppNavigator from "./navigation/AppNavigator";
+import * as Notification from "expo-notifications";
+Notification.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+    };
+  },
+});
+
 const rootReducer = combineReducers({
   products: ProductsReducer,
   cart: cartReducer,
